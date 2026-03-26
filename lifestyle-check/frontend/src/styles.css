@@ -422,53 +422,59 @@ button { font-family:inherit; cursor:pointer; border:none; outline:none; }
   .result-top { flex-direction:column; align-items:center; }
 }
 
+/* ─────────────────────────────────────────
+   MOBILE  ≤ 560px
+───────────────────────────────────────── */
 @media(max-width:560px) {
-  /* ── Body/layout: allow scroll, no overflow:hidden trap ── */
+
+  /* Body: allow page-level scroll, kill horizontal overflow */
   body { overflow-x:hidden; overflow-y:auto; }
 
+  /* ── Navbar ── */
   .app-navbar { height:54px; padding:0 14px; gap:6px; }
   .nav-sub { display:none; }
 
-  /* Main wrap: true full-screen centering so card sits in the middle */
+  /* ── Main wrap: full viewport, card centred inside ── */
   .main-wrap {
-    padding:62px 10px 16px;
+    height:100dvh;
+    min-height:100dvh;
+    padding:62px 10px 12px;
+    display:flex;
     align-items:center;
     justify-content:center;
     overflow-y:auto;
-    height:100dvh;
-    min-height:100dvh;
-  }
-  /* Card: min-height so it fills most of the screen even with few options,
-     flex column so card-body can grow to fill available space */
-  .quiz-card {
-    height:auto;
-    min-height:calc(100dvh - 78px);
-    max-height:unset;
-    border-radius:16px;
-    margin-bottom:0;
-    width:100%;
-    display:flex;
-    flex-direction:column;
-  }
-  /* card-body grows to fill remaining space between header and footer */
-  .card-body {
-    padding:16px 14px;
-    overflow-y:visible;
-    flex:1;
-    display:flex;
-    flex-direction:column;
+    box-sizing:border-box;
   }
 
-  /* ── Question card: stacked, image shown on top ── */
-  .question-card {
-    grid-template-columns:1fr;
-    gap:12px;
-    height:100%;
-    flex:1;
+  /* ── Quiz card: fills available space, scrolls internally if needed ── */
+  .quiz-card {
+    width:100%;
+    height:auto;
+    min-height:calc(100dvh - 78px);
+    max-height:calc(100dvh - 78px);  /* hard cap so it never overflows viewport */
+    border-radius:16px;
+    margin:0;
     display:flex;
     flex-direction:column;
+    overflow:hidden;                  /* children scroll, not the card itself */
   }
-  /* Show image on mobile — centered, compact */
+
+  /* ── Card body: scrollable container ── */
+  .card-body {
+    flex:1;
+    padding:14px 14px;
+    overflow-y:auto;                  /* scroll content if it overflows */
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    grid-template-columns:1fr;
+    gap:10px;
+    height:auto;
+  }
+
+  /* Image — shown above question, nicely sized */
   .q-right {
     display:flex;
     order:-1;
@@ -478,133 +484,124 @@ button { font-family:inherit; cursor:pointer; border:none; outline:none; }
     flex-shrink:0;
   }
   .q-sticker {
+    height:150px;
     width:auto;
-    height:100px;
-    max-width:160px;
+    max-width:200px;
     object-fit:contain;
-    filter:drop-shadow(0 8px 20px rgba(0,0,0,.18));
+    filter:drop-shadow(0 10px 24px rgba(0,0,0,.2));
   }
-  /* q-left fills the rest, opts-wrap grows to spread options */
+
+  /* Left column: natural flow */
   .q-left {
-    flex:1;
     display:flex;
     flex-direction:column;
-    gap:12px;
-    height:auto;
+    gap:10px;
     overflow:visible;
   }
   .opts-wrap {
-    flex:1;
     display:flex;
     flex-direction:column;
-    justify-content:stretch;
     overflow:visible;
   }
-  /* Options stretch evenly to fill available vertical space */
-  .opts-list {
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-  }
-  .opts-list .opt {
-    flex:1;
-    min-height:52px;
-    margin-bottom:8px;
-    display:flex;
-    align-items:center;
-  }
-  .opts-list .opt:last-child { margin-bottom:0; }
 
-  .opts-two {
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-  }
-  .opts-two .opt {
-    flex:1;
-    min-height:60px;
-    margin-bottom:10px;
-    display:flex;
-    align-items:center;
-  }
-  .opts-two .opt:last-child { margin-bottom:0; }
+  /* Options — slightly taller than original, NOT forcefully stretched */
+  .opts-list { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .opts-two  { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .opts-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px; }
 
-  .opts-grid {
-    flex:1;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    align-content:stretch;
-  }
-  .opts-grid .opt {
-    min-height:52px;
-    display:flex;
-    align-items:center;
-  }
+  /* Base option: 2px more top+bottom padding vs original 12px → 14px */
+  .opt { padding:14px 14px; font-size:.84rem; }
 
+  /* 2-option questions: a touch taller so the card doesn't look sparse */
+  .opts-two .opt { padding:20px 16px; min-height:unset; }
+
+  /* Question text */
   .q-title { font-size:1.1rem; }
   .q-desc  { font-size:.78rem; }
 
+  /* ── RESULT SCREEN ──
+     Make it scrollable so the gauge is never clipped at the top.
+     Give gauge an appropriate smaller size for mobile.         */
+  .result-screen {
+    width:100%;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-right:0;
+  }
+
+  /* Stack gauge above text, centred */
+  .result-top {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+
+  /* Shrink the 220×220 SVG gauge to fit mobile without clipping */
+  .gauge-wrap svg {
+    width:160px !important;
+    height:160px !important;
+  }
+
+  .result-text { width:100%; min-width:unset; }
+  .risk-label  { font-size:1.25rem; }
+
+  /* ── Footer ── */
   .card-foot { padding:12px 14px; }
   .btn-flat,.btn-primary,.btn-danger { padding:9px 14px; font-size:.82rem; }
   .result-footer-btns { flex-direction:column; }
   .result-footer-btns button { width:100%; }
-  .risk-label { font-size:1.3rem; }
 }
 
-/* ── Ultra-narrow phones: Samsung Galaxy Z Fold (~280-360px) ── */
+/* ─────────────────────────────────────────
+   ULTRA-NARROW  ≤ 380px  (Galaxy Z Fold etc.)
+───────────────────────────────────────── */
 @media(max-width:380px) {
-  /* Navbar: condense to avoid overlap */
-  .app-navbar {
-    padding:0 10px;
-    gap:4px;
-    flex-wrap:nowrap;
-  }
-  .nav-brand {
-    font-size:.82rem;
-    gap:5px;
-    flex-shrink:0;
-  }
-  .brand-dot { width:22px; height:22px; font-size:.65rem; flex-shrink:0; }
 
-  /* Hide the "← Hub" back button label, show icon only */
-  .back-b { padding:5px 8px; font-size:.72rem; }
+  /* Navbar */
+  .app-navbar { padding:0 10px; gap:4px; }
+  .nav-brand  { font-size:.82rem; gap:5px; flex-shrink:0; }
+  .brand-dot  { width:22px; height:22px; font-size:.65rem; }
+  .back-b     { padding:5px 8px; font-size:.72rem; }
+  .lang-grp   { padding:2px; gap:1px; }
+  .lang-b     { padding:3px 6px; font-size:.65rem; }
+  .theme-b    { width:28px; height:28px; }
+  .nav-right  { gap:5px; }
 
-  /* Shrink language buttons */
-  .lang-grp { padding:2px; gap:1px; }
-  .lang-b { padding:3px 6px; font-size:.65rem; }
-
-  /* Shrink theme button */
-  .theme-b { width:28px; height:28px; }
-
-  /* nav-right tighter */
-  .nav-right { gap:5px; }
-
-  /* Sticker smaller */
-  .q-sticker { height:80px; max-width:120px; }
+  /* Sticker a touch smaller */
+  .q-sticker { height:110px; max-width:150px; }
 
   /* Options */
-  .opt { padding:10px 12px; font-size:.8rem; }
-  .opts-grid { grid-template-columns:1fr; }
+  .opt        { padding:11px 12px; font-size:.8rem; }
+  .opts-grid  { grid-template-columns:1fr; }
+  .opts-two .opt { padding:16px 14px; }
 
-  /* Card body */
-  .card-body { padding:12px 10px; }
-  .q-title { font-size:1rem; }
-  .q-desc  { font-size:.75rem; }
+  /* Card body / text */
+  .card-body  { padding:10px 10px; }
+  .q-title    { font-size:1rem; }
+  .q-desc     { font-size:.75rem; }
 
-  /* Footer buttons */
-  .card-foot { padding:10px 10px; gap:6px; }
+  /* Gauge even smaller on very narrow screens */
+  .gauge-wrap svg { width:130px !important; height:130px !important; }
+
+  /* Footer */
+  .card-foot  { padding:10px 10px; gap:6px; }
   .btn-flat,.btn-primary,.btn-danger { padding:8px 10px; font-size:.78rem; }
 }
 
+/* ─────────────────────────────────────────
+   LANDSCAPE SHORT  (height ≤ 500px)
+───────────────────────────────────────── */
 @media(max-height:500px) and (orientation:landscape) {
   .app-navbar { height:48px; }
   .nav-sub { display:none; }
   .main-wrap { padding:56px 16px 10px; align-items:flex-start; overflow-y:auto; height:100dvh; }
   .quiz-card { height:auto; min-height:unset; max-height:unset; border-radius:14px; }
-  .card-body { padding:14px 20px; overflow-y:visible; }
+  .card-body { padding:14px 20px; overflow-y:auto; }
   .question-card { grid-template-columns:2fr 1fr; gap:20px; }
   .q-sticker { width:80%; max-width:140px; }
   .q-title { font-size:1.05rem; }

@@ -6,9 +6,9 @@
 
 ## 📸 Screenshots
 
-| Assessment Hub | Lifestyle Check | Risk Result |
-|---|---|---|
-| ![Assessment Hub](screenshots/assessment-hub.png) | ![Lifestyle Check](screenshots/lifestyle-check.png) | ![Result](screenshots/result.png) |
+| Assessment Hub | Lifestyle Check | Risk ML Engine | Result |
+|---|---|---|---|
+| ![Assessment Hub](screenshots/assessment-hub.png) | ![Lifestyle Check](screenshots/lifestyle-check.png) | ![ML Engine](screenshots/risk-ml-engine.png) | ![Result](screenshots/result.png) |
 
 ---
 
@@ -35,6 +35,8 @@ It has **two separate modules** that work together:
 
 2. **Risk ML Engine** — A machine learning model (XGBoost) trained on the **BRFSS 2015 Health Indicators dataset** (253,000+ real records) that predicts diabetes risk based on clinical health factors.
 
+Both modules are launched from a single **Assessment Hub** landing page.
+
 ---
 
 ## ✨ Features
@@ -45,6 +47,7 @@ It has **two separate modules** that work together:
 - 💅 **Animated UI** — Built with React + Framer Motion for smooth, engaging experience
 - 🔒 **No personal data stored** — All processing is done in real-time
 - 📱 **Responsive design** — Works on desktop and mobile
+- ⚡ **One-command startup** — Single PowerShell script launches all 4 services
 
 ---
 
@@ -53,8 +56,8 @@ It has **two separate modules** that work together:
 ### Frontend
 | Technology | Purpose |
 |---|---|
-| HTML / CSS / JavaScript | Assessment Hub (vanilla) |
-| React 18 + Vite | Lifestyle Check frontend |
+| HTML / CSS / JavaScript | Assessment Hub landing page |
+| React 18 + Vite | Lifestyle Check & Risk ML Engine frontends |
 | Framer Motion | Animations |
 | React Icons | UI icons |
 
@@ -69,7 +72,7 @@ It has **two separate modules** that work together:
 |---|---|
 | XGBoost | Diabetes risk classification |
 | scikit-learn | Preprocessing, metrics, scaling |
-| imbalanced-learn | Dataset balancing (SMOTE) |
+| imbalanced-learn | Dataset balancing |
 | pandas + NumPy | Data processing |
 
 ---
@@ -79,46 +82,60 @@ It has **two separate modules** that work together:
 ```
 diabetes-risk-system/
 │
-├── assessment-hub/                  # Vanilla HTML/CSS/JS landing & hub
+├── start_all.ps1                        # ⚡ One script to start everything
+│
+├── assessment-hub/                      # Landing page (HTML/CSS/JS)
 │   ├── index.html
 │   ├── script.js
 │   └── styles.css
 │
-├── lifestyle-check/                 # Lifestyle quiz module
+├── lifestyle-check/                     # Lifestyle quiz module
 │   ├── backend/
-│   │   ├── app.py                   # Flask API — scoring logic
+│   │   ├── app.py                       # Flask API on port 5000
 │   │   ├── predict.py
 │   │   ├── train.py
 │   │   └── requirements.txt
 │   ├── frontend/
 │   │   ├── src/
-│   │   │   ├── App.jsx              # Main React app
+│   │   │   ├── App.jsx
 │   │   │   ├── components/
 │   │   │   │   ├── Navbar.jsx
 │   │   │   │   ├── ProgressNav.jsx
 │   │   │   │   ├── QuestionCard.jsx
 │   │   │   │   └── ResultCard.jsx
 │   │   │   └── styles.css
-│   │   ├── public/stickers/         # Question illustration images
+│   │   ├── public/stickers/             # Question illustration images
 │   │   ├── package.json
-│   │   └── vite.config.js
+│   │   └── vite.config.js               # Runs on port 5173
 │   └── models/
 │       ├── prediabetes_model.pkl
 │       └── label_encoder.pkl
 │
-└── risk-ml-engine/                  # XGBoost ML prediction module
-    └── backend/
-        ├── app.py                   # Flask API — ML predictions
-        ├── train_model.py           # Model training script
-        ├── preprocessing.py         # Data preprocessing
-        ├── predict_new_data.py
-        ├── models/
-        │   ├── final_xgb_model.pkl
-        │   ├── scaler.pkl
-        │   └── threshold.pkl
-        ├── data/
-        │   └── diabetes_012_health_indicators_BRFSS2015.csv
-        └── requirements.txt
+└── risk-ml-engine/                      # XGBoost ML prediction module
+    ├── backend/
+    │   ├── app.py                       # Flask API on port 5001
+    │   ├── train_model.py
+    │   ├── preprocessing.py
+    │   ├── predict_new_data.py
+    │   ├── models/
+    │   │   ├── final_xgb_model.pkl
+    │   │   ├── scaler.pkl
+    │   │   └── threshold.pkl
+    │   ├── data/
+    │   │   └── diabetes_012_health_indicators_BRFSS2015.csv
+    │   └── requirements.txt
+    └── frontend/
+        ├── src/
+        │   ├── App.jsx
+        │   ├── components/
+        │   │   ├── Navbar.jsx
+        │   │   ├── ProgressNav.jsx
+        │   │   ├── QuestionCard.jsx
+        │   │   └── ResultCard.jsx
+        │   └── styles.css
+        ├── public/stickers/             # Question illustration images
+        ├── package.json
+        └── vite.config.js               # Runs on port 5174
 ```
 
 ---
@@ -143,40 +160,77 @@ cd diabetes-risk-system
 
 ---
 
-### 2. Run the Lifestyle Check Module
+### 2. Install Dependencies (First Time Only)
 
-#### Backend
+Install Python dependencies for both backends:
+
 ```bash
 cd lifestyle-check/backend
 pip install -r requirements.txt
-python app.py
+cd ../../risk-ml-engine/backend
+pip install -r requirements.txt
+cd ../..
 ```
-> Runs on `http://localhost:5000`
 
-#### Frontend
+Install Node dependencies for both frontends:
+
 ```bash
 cd lifestyle-check/frontend
 npm install
-npm run dev
+cd ../../risk-ml-engine/frontend
+npm install
+cd ../..
 ```
-> Runs on `http://localhost:5173`
 
 ---
 
-### 3. Run the Risk ML Engine
+### 3. Start the Project
 
+From the **root folder**, run the PowerShell script to launch all 4 services at once:
+
+```powershell
+.\start_all.ps1
+```
+
+This will automatically start:
+
+| Service | URL |
+|---|---|
+| Lifestyle Check Backend | `http://localhost:5000` |
+| Risk ML Engine Backend | `http://localhost:5001` |
+| Lifestyle Check Frontend | `http://localhost:5173` |
+| Risk ML Engine Frontend | `http://localhost:5174` |
+| Assessment Hub | Opens automatically in your browser |
+
+> **Note:** `start_all.ps1` is a Windows PowerShell script. If you are on Mac/Linux, start each service manually using the commands below.
+
+---
+
+### Manual Start (Mac / Linux)
+
+Open 4 separate terminal windows and run one command in each:
+
+**Terminal 1 — Lifestyle Backend:**
 ```bash
-cd risk-ml-engine/backend
-pip install -r requirements.txt
-python app.py
+cd lifestyle-check/backend && python app.py
 ```
-> Runs on `http://localhost:5001`
 
----
+**Terminal 2 — Risk ML Backend:**
+```bash
+cd risk-ml-engine/backend && python app.py
+```
 
-### 4. Open the Assessment Hub
+**Terminal 3 — Lifestyle Frontend:**
+```bash
+cd lifestyle-check/frontend && npm run dev
+```
 
-Simply open `assessment-hub/index.html` in your browser — no server needed!
+**Terminal 4 — Risk ML Frontend:**
+```bash
+cd risk-ml-engine/frontend && npm run dev
+```
+
+Then open `assessment-hub/index.html` in your browser.
 
 ---
 
@@ -223,10 +277,10 @@ This project was built as a **3rd Year University Team Project** by:
 
 | Name | GitHub | Role |
 |---|---|---|
-| Shivam Burkul | [@shivamburkul](https://github.com/shivamburkul) | Add your role here |
-| Friend Name | [@githubusername](https://github.com/) | Add their role here |
-| Friend Name | [@githubusername](https://github.com/) | Add their role here |
-| Friend Name | [@githubusername](https://github.com/) | Add their role here |
+| Pranav Gajanan Dighade | [@connectpranav](https://github.com/connectpranav) | Leader |
+| Ajay Bhanwarlal Chaudhary | [@ajay262628](https://github.com/ajay262628) | Member 1 |
+| Shivam Gajanan Burkul | [@shivamburkul](https://github.com/shivamburkul) | Member 2 |
+| Faiz Ishaque Chauhan | [@faizchauhan18-creator](https://github.com/faizchauhan18-creator) | Member 3 |
 
 ---
 

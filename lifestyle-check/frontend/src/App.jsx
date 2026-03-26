@@ -157,7 +157,7 @@ function getQ(q, lang) {
 /* ─── API ────────────────────────────────────────────────────────────────── */
 async function fetchPrediction(answers) {
   try {
-    const res = await fetch("http://localhost:5000/predict", {
+    const res = await fetch("https://lifestyle-check-backend.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers }),

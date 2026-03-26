@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DiabetesIQ — Early Detection Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ANIMATED BACKGROUND -->
+  <div class="bg-scene">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="8" stroke="white" stroke-width="1.5"/>
+          <path d="M10 5v5l3 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Diabetes<em>IQ</em></span>
+    </div>
+    <div class="nav-links">
+      <a href="#assess" data-i18n="nav_assess">Assess Now</a>
+      <a href="#how" data-i18n="nav_how">How It Works</a>
+      <a href="#why" data-i18n="nav_why">Why It Matters</a>
+    </div>
+    <div class="nav-controls">
+      <div class="lang-group">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हि</button>
+        <button class="lang-btn" data-lang="mr">म</button>
+      </div>
+      <button class="theme-btn" id="themeBtn">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">
+      <span class="pulse-ring"></span>
+      <span data-i18n="eyebrow">AI-Powered Diabetes Early Detection</span>
+    </div>
+    <h1 class="hero-title">
+      <span data-i18n="h1a">Know Your Risk.</span><br />
+      <span class="gradient-text" data-i18n="h1b">Protect Your Future.</span>
+    </h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      Over <strong>537 million adults</strong> live with diabetes worldwide — most don't know their risk. Our scientifically-backed AI screening gives you answers in minutes.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="document.getElementById('assess').scrollIntoView({behavior:'smooth'})">
+        <span data-i18n="cta_primary">Start Assessment</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn-hero-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})" data-i18n="cta_ghost">See How It Works</button>
+    </div>
+    <div class="stats-strip">
+      <div class="stat-col">
+        <div class="stat-val"><span class="cnt" data-to="537">0</span>M+</div>
+        <div class="stat-lbl" data-i18n="s1">People With Diabetes</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-col">
+        <div class="stat-val"><span class="cnt" data-to="90">0</span>%</div>
+        <div class="stat-lbl" data-i18n="s2">Type 2 — Preventable</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-col">
+        <div class="stat-val"><span class="cnt" data-to="70">0</span>K+</div>
+        <div class="stat-lbl" data-i18n="s3">ML Training Records</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-col">
+        <div class="stat-val"><span class="cnt" data-to="3">0</span>min</div>
+        <div class="stat-lbl" data-i18n="s4">To Complete</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT CARDS -->
+  <section class="assess-section" id="assess">
+    <div class="section-eyebrow" data-i18n="choose_label">CHOOSE YOUR PATH</div>
+    <h2 class="section-title" data-i18n="choose_title">Two assessments. One mission.</h2>
+    <p class="section-sub" data-i18n="choose_sub">Pick the screening approach that matches your situation.</p>
+
+    <div class="cards-wrap">
+
+      <!-- LIFESTYLE CARD -->
+      <article class="acard lifestyle-card" onclick="window.location.href='http://localhost:5173'" tabindex="0">
+        <div class="acard-shimmer"></div>
+        <div class="acard-top">
+          <div class="acard-emblem green-emblem">🌿</div>
+          <div class="acard-badges">
+            <span class="badge green-badge" data-i18n="b_beginner">Beginner Friendly</span>
+            <span class="badge time-badge">~3 min</span>
+          </div>
+        </div>
+        <h3 data-i18n="lc_title">Lifestyle Screening</h3>
+        <p data-i18n="lc_desc">Answer questions about your daily habits, diet, sleep, stress, and family history. No medical records needed — instant risk analysis.</p>
+        <ul class="acard-list">
+          <li><span class="ck green-ck">✓</span><span data-i18n="lc1">22 comprehensive lifestyle questions</span></li>
+          <li><span class="ck green-ck">✓</span><span data-i18n="lc2">No medical knowledge required</span></li>
+          <li><span class="ck green-ck">✓</span><span data-i18n="lc3">Instant detailed risk breakdown</span></li>
+          <li><span class="ck green-ck">✓</span><span data-i18n="lc4">Personalised prevention tips</span></li>
+        </ul>
+        <div class="acard-footer">
+          <span class="engine-tag" data-i18n="engine_rule">Rule-Based Scoring Engine</span>
+          <button class="go-btn green-go" data-i18n="go_lc">Start →</button>
+        </div>
+      </article>
+
+      <div class="vs-sep">
+        <div class="vs-line"></div>
+        <span>OR</span>
+        <div class="vs-line"></div>
+      </div>
+
+      <!-- AI CARD — diagonal hot-tag removed; "Most Accurate" now as a badge -->
+      <article class="acard ai-card" onclick="window.location.href='http://localhost:5174'" tabindex="0">
+        <div class="acard-shimmer"></div>
+        <div class="acard-top">
+          <div class="acard-emblem cyan-emblem">🧠</div>
+          <div class="acard-badges">
+            <span class="badge cyan-badge" data-i18n="b_clinical">Clinical Grade</span>
+            <span class="badge time-badge">~5 min</span>
+            <span class="badge cyan-badge" data-i18n="hot_tag">🔥 Most Accurate</span>
+          </div>
+        </div>
+        <h3 data-i18n="ai_title">AI Clinical Assessment</h3>
+        <p data-i18n="ai_desc">XGBoost model trained on 70,000+ real patient records from the BRFSS 2015 clinical dataset. Optimised for maximum sensitivity.</p>
+        <ul class="acard-list">
+          <li><span class="ck cyan-ck">✓</span><span data-i18n="ai1">XGBoost ML — AUC-optimised</span></li>
+          <li><span class="ck cyan-ck">✓</span><span data-i18n="ai2">70,000+ real patient records</span></li>
+          <li><span class="ck cyan-ck">✓</span><span data-i18n="ai3">21 clinically-validated parameters</span></li>
+          <li><span class="ck cyan-ck">✓</span><span data-i18n="ai4">F1-optimised decision threshold</span></li>
+        </ul>
+        <div class="acard-footer">
+          <span class="engine-tag">XGBoost · BRFSS 2015</span>
+          <button class="go-btn cyan-go" data-i18n="go_ai">Start →</button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-eyebrow" data-i18n="how_label">THE PROCESS</div>
+    <h2 class="section-title" data-i18n="how_title">Simple. Fast. Insightful.</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-ico">📋</div>
+        <h4 data-i18n="st1t">Answer Questions</h4>
+        <p data-i18n="st1d">Choose your path and answer clear, guided questions about your health profile and lifestyle.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-ico">⚡</div>
+        <h4 data-i18n="st2t">AI Analysis</h4>
+        <p data-i18n="st2d">Our backend model processes your inputs using clinically-validated algorithms in milliseconds.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-ico">📊</div>
+        <h4 data-i18n="st3t">Receive Your Report</h4>
+        <p data-i18n="st3d">Get a detailed risk score with contributing factors, colour-coded risk level, and actionable recommendations.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-ico">🏥</div>
+        <h4 data-i18n="st4t">Take Action</h4>
+        <p data-i18n="st4d">Use your report to have an informed conversation with your doctor for formal testing and follow-up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT MATTERS -->
+  <section class="why-section" id="why">
+    <div class="section-eyebrow" data-i18n="why_label">WHY IT MATTERS</div>
+    <h2 class="section-title" data-i18n="why_title">The silent epidemic — act now</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-ico">💊</span>
+        <h4 data-i18n="w1t">Reverse Prediabetes</h4>
+        <p data-i18n="w1d">Caught early, prediabetes can be completely reversed through lifestyle changes alone.</p>
+      </div>
+      <div class="why-card why-featured">
+        <span class="why-ico">❤️</span>
+        <h4 data-i18n="w2t">Protect Your Heart</h4>
+        <p data-i18n="w2d">Diabetes doubles the risk of heart disease and stroke. Early action dramatically cuts this risk.</p>
+        <div class="why-stat-chip">2× Heart Risk</div>
+      </div>
+      <div class="why-card">
+        <span class="why-ico">👁️</span>
+        <h4 data-i18n="w3t">Save Your Vision</h4>
+        <p data-i18n="w3d">Diabetic retinopathy is a leading cause of blindness — but is entirely preventable with early management.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-ico">🧬</span>
+        <h4 data-i18n="w4t">Understand Your Genes</h4>
+        <p data-i18n="w4d">Family history raises your risk by 40%. Early screening gives you the power to intervene.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-ico">💰</span>
+        <h4 data-i18n="w5t">Reduce Future Costs</h4>
+        <p data-i18n="w5d">Treating diabetes complications costs 10× more than prevention. A 3-minute test pays for itself.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-ico">🧠</span>
+        <h4 data-i18n="w6t">Mental Health Link</h4>
+        <p data-i18n="w6d">Unmanaged blood sugar is linked to cognitive decline and depression. Awareness is the first medicine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer-bar">
+    <span class="disclaimer-ico">⚕️</span>
+    <div>
+      <strong data-i18n="disc_t">Medical Disclaimer</strong>
+      <p data-i18n="disc_d">This tool is for educational screening purposes only. It does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">🩸 Diabetes<em>IQ</em></div>
+    <p data-i18n="footer_tag">Early detection. Better outcomes. Healthier lives.</p>
+    <p class="footer-copy">Screening tool only · Not a substitute for medical advice · Built for early diabetes awareness</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

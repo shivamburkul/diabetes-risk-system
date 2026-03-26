@@ -26,54 +26,20 @@ try:
 except Exception as e:
     print(f"Error loading assets: {e}")
 
-# MUST match exact order used in preprocessing.py
 EXPECTED_FEATURES = [
-    'HighBP',
-    'HighChol',
-    'CholCheck',
-    'BMI',
-    'Smoker',
-    'Stroke',
-    'HeartDiseaseorAttack',
-    'PhysActivity',
-    'Fruits',
-    'Veggies',
-    'HvyAlcoholConsump',
-    'AnyHealthcare',
-    'NoDocbcCost',
-    'GenHlth',
-    'MentHlth',
-    'PhysHlth',
-    'DiffWalk',
-    'Sex',
-    'Age',
-    'Education',
-    'Income',
+    'HighBP', 'HighChol', 'CholCheck', 'BMI', 'Smoker', 'Stroke',
+    'HeartDiseaseorAttack', 'PhysActivity', 'Fruits', 'Veggies',
+    'HvyAlcoholConsump', 'AnyHealthcare', 'NoDocbcCost', 'GenHlth',
+    'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income',
 ]
 
-# Safe neutral defaults (mid-range values from dataset)
 FEATURE_DEFAULTS = {
-    'HighBP':               0,
-    'HighChol':             0,
-    'CholCheck':            1,   # most people have had it checked
-    'BMI':                  27,
-    'Smoker':               0,
-    'Stroke':               0,
-    'HeartDiseaseorAttack': 0,
-    'PhysActivity':         1,
-    'Fruits':               1,
-    'Veggies':              1,
-    'HvyAlcoholConsump':    0,
-    'AnyHealthcare':        1,
-    'NoDocbcCost':          0,
-    'GenHlth':              3,
-    'MentHlth':             0,
-    'PhysHlth':             0,
-    'DiffWalk':             0,
-    'Sex':                  0,
-    'Age':                  5,
-    'Education':            5,
-    'Income':               5,
+    'HighBP': 0, 'HighChol': 0, 'CholCheck': 1, 'BMI': 27,
+    'Smoker': 0, 'Stroke': 0, 'HeartDiseaseorAttack': 0,
+    'PhysActivity': 1, 'Fruits': 1, 'Veggies': 1,
+    'HvyAlcoholConsump': 0, 'AnyHealthcare': 1, 'NoDocbcCost': 0,
+    'GenHlth': 3, 'MentHlth': 0, 'PhysHlth': 0, 'DiffWalk': 0,
+    'Sex': 0, 'Age': 5, 'Education': 5, 'Income': 5,
 }
 
 
@@ -98,15 +64,12 @@ def preprocess_and_predict(data_point):
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/predict": {"origins": [
-    "http://localhost:5173",
-    "http://localhost:5174"
-]}})
+CORS(app)  # Allow all origins for deployment
 
 
 @app.route('/', methods=['GET'])
 def home():
-    return f"BRFSS Diabetes API running on port 5001 — threshold: {THRESHOLD:.4f}"
+    return f"BRFSS Diabetes API running — threshold: {THRESHOLD:.4f}"
 
 
 @app.route('/predict', methods=['POST'])
@@ -156,4 +119,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=False)

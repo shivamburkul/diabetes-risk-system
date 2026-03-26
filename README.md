@@ -6,9 +6,6 @@
 
 ## 📸 Screenshots
 
-> **Add your screenshots here!**
-> Take screenshots of your running website and drag-and-drop them below.
-
 | Assessment Hub | Lifestyle Check | Risk Result |
 |---|---|---|
 | ![Assessment Hub](screenshots/assessment-hub.png) | ![Lifestyle Check](screenshots/lifestyle-check.png) | ![Result](screenshots/result.png) |
@@ -226,12 +223,10 @@ This project was built as a **3rd Year University Team Project** by:
 
 | Name | GitHub | Role |
 |---|---|---|
-| Pranav Gajanan Dighade | [@connectpranav](https://github.com/connectpranav) | Leader |
-| Ajay Bhanwarlal Chaudhary | [@ajay262628](https://github.com/ajay262628) | Member 1 |
-| Shivam Gajanan Burkul | [@shivamburkul](https://github.com/shivamburkul) | Member 2 |
-| Faiz Ishaque Chauhan | [@faizchauhan18-creator](https://github.com/faizchauhan18-creator) | Member 3 |
-
-> ✏️ *Fill in your teammates' names, GitHub usernames, and roles (e.g. ML Engineer, Frontend Developer, Backend Developer, UI/UX Designer)*
+| Shivam Burkul | [@shivamburkul](https://github.com/shivamburkul) | Add your role here |
+| Friend Name | [@githubusername](https://github.com/) | Add their role here |
+| Friend Name | [@githubusername](https://github.com/) | Add their role here |
+| Friend Name | [@githubusername](https://github.com/) | Add their role here |
 
 ---
 

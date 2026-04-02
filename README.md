@@ -277,7 +277,7 @@ This project was built as a **3rd Year University Team Project** by:
 
 | Name | GitHub | Role |
 |---|---|---|
-| Pranav Gajanan Dighade | [@connectpranav](https://github.com/connectpranav) | Leader |
+| Pranav Gajanan Dighade | [@dighadepranav](https://github.com/dighadepranav) | Leader |
 | Ajay Bhanwarlal Chaudhary | [@ajay262628](https://github.com/ajay262628) | Member 1 |
 | Shivam Gajanan Burkul | [@shivamburkul](https://github.com/shivamburkul) | Member 2 |
 | Faiz Ishaque Chauhan | [@faizchauhan18-creator](https://github.com/faizchauhan18-creator) | Member 3 |
